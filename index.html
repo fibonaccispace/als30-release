@@ -252,7 +252,6 @@ const items = [
     { image: 'helic.png', year: 2015, title: 'Вертолет &laquo;Скаут&raquo;', width: '1400px', top: '-100px' },
     { image: 'watch.png', year: 2020, title: 'Часы &laquo;Радиус&raquo;', width: '700px' },
     { image: 'ru.png', year: 2020, title: 'Знак &laquo;Сделано в&nbsp;России&raquo;' },
-    
     { image: 'moscow.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
     { image: 'vnukovo.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
     { image: 'station.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
@@ -326,7 +325,7 @@ init()
 function init() {
     const diff = Math.abs(window.scrollY - lastScroll)
     lastScroll = window.scrollY
-    video.style.filter = 'hue-rotate('+((window.scrollY/100)+90)+'deg) blur(5px) contrast('+(150+diff/2)+'%) brightness('+(100+diff)+'%)'
+    video.style.filter = 'hue-rotate('+((window.scrollY/100)+140)+'deg) blur(5px) contrast('+(150+diff/2)+'%) brightness('+(100+diff)+'%)'
     video.style.transform = 'scale('+(1+window.scrollY/20000)+')'
     items.forEach((item, index)=>{
         if(item.quote) return
