@@ -332,7 +332,7 @@ function init() {
         const top = item.element.getBoundingClientRect().top
         const block = item.element.querySelector('.history-block')
         const scale = Math.min(Math.max(0,(1-top/window.innerHeight/1.5)),3)
-        const rotate = (index%2==0 ? 1 : -1) * top/100
+        const rotate = top/130
         const opacity = 1-(Math.abs(top/1.5)/window.innerHeight)
         block.style.transform = 'scale('+scale+') rotate('+rotate+'deg) translateX('+rotate*10+'px)'
         block.style.opacity = opacity
