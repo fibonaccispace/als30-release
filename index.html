@@ -1,0 +1,342 @@
+
+<style>
+@font-face {
+    font-family: als_enormous_sb;
+    src: url(media/fonts/ALSEnormous-SemiBold.woff2);
+}
+
+@font-face {
+    font-family: als_enormous_r;
+    src: url(media/fonts/ALSEnormous-Regular.woff2);
+}
+
+@font-face {
+    font-family: als_enormous_m;
+    src: url(media/fonts/ALSEnormous-Medium.woff2);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+</style>
+
+<style>
+#gallery {
+    perspective: 100px;
+    overflow: hidden;
+}
+#gallery .history-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+    margin-bottom: 196px;
+}
+#gallery .date-wrapper {
+    position: relative;
+    margin-bottom: 16px;
+}
+#gallery .date-wrapper img {
+    width: 70px;
+}
+#gallery .date-wrapper span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: als_enormous_m;
+
+    font-size: 18px;
+    text-align: center;
+}
+#gallery .history-block__image {
+    max-width: 70%;
+}
+#gallery .history-block__title {
+    font-family: als_enormous_m;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 350px;
+}
+#gallery .history-block-rotate {
+    transform: rotateX(-2deg);
+}
+#gallery .history-block-perspective {
+    perspective: 200px;
+}
+body {
+    background: rgb(0, 0, 0);
+    height: 1000vh;
+}
+#background_video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 2s ease;
+    transition: filter .2s ease;
+    filter: hue-rotate(90deg);
+}
+.paralax {
+    perspective: 300px;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+.paralax-top, .paralax-bottom {
+    position: fixed;
+    width: 150%;
+    height: 150%;
+    top: 0;
+    left: 0%;
+    /* left: 50%; */
+    background: rgba(255,0,0,0.5);
+
+    /* transform: rotateX(-15deg) translate(-50%, 0); */
+}
+.paralax-item {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: rgb(9, 255, 0);
+    transition: s ease;
+}
+.quote {
+    max-width: 750px;
+    margin: 0 auto;
+}
+.quote img {
+    display: block;
+    margin: 0 auto 26px auto;
+    width: 160px;
+}
+.quote-text {
+    font-family: als_enormous_m;
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 26px;
+}
+.quote-author {
+    font-family: als_enormous_r;
+    font-size: 21px;
+    text-align: center;
+}
+</style>
+
+<video autoplay muted loop playsinline id="background_video">
+    <source src="media/background.mp4" type="video/mp4">
+</video>
+
+<style>
+.main__logo-video {
+    width: 100%;
+}
+p.main__logo-description {
+    font-family: als_enormous_r;
+}
+.main__logo-be-history {
+    transform: translateY(-25px);
+    font-family: als_enormous_m;
+    font-size: 21px;
+    text-align: center;
+}
+.main__logo-be-history {
+    background: white;
+    color: black;
+    border-radius: 100px;
+    padding: 16px 24px;
+    cursor: pointer;
+    transition: 1s ease;
+}
+.main__logo-be-history:hover {
+    box-shadow: 0 20px 90px 0 white;
+}
+.main__logo {
+    padding-top: 30vh;
+    height: 100vh;
+    margin-bottom: 40vh;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+p.main__logo-description {
+    transform: translateY(-100px);
+    max-width: 950px;
+    font-weight: 50;
+    font-size: 21px;
+    text-align: center;
+    z-index: 1;
+}
+
+.main__logo .main__logo-image {
+    width: 100%;
+    display: block;
+}
+
+.main__logo .main__particles-list {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.main__logo .main__particles-item {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+
+
+</style>
+<article class="main__logo">
+    <video autoplay muted loop playsinline class="main__logo-video">
+        <source src="media/txt-alpha-v1.webm" type="video/webm">
+    </video>
+    <div class="main__particles-list" id="particles-list"></div>
+    <p class="main__logo-description">Когда мы&nbsp;начинали, интернет только учился ходить. За&nbsp;30&nbsp;лет наш дизайн стал голосом известных брендов, лицом важнейших событий и&nbsp;частью культурного контекста. В&nbsp;этом шоуриле&nbsp;&mdash; знаковые проекты, которыми мы&nbsp;гордимся. Став первопроходцами, мы&nbsp;вошли в&nbsp;историю дизайна и&nbsp;продолжаем показывать свое мастерство.</p>
+    <div class="main__logo-be-history">Творить историю</div>
+</article>
+<div id="gallery"></div>
+<!-- <div class="paralax"> -->
+    <!-- <div class="paralax-top"></div> -->
+<!-- </div> -->
+<!-- <div class="paralax-bottom"></div> -->
+
+<script>
+const video = document.getElementById('background_video')
+video.addEventListener('canplaythrough', () => {
+    video.style.opacity = 1
+})
+</script>
+<script>
+const gallery = document.getElementById('gallery')
+let lastScroll = window.scrollY
+const items = [
+    { image: 'yandex.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'rostselmash.png', year: 2004, title: 'Логотип &laquo;Ростсельмаша&raquo;' },
+    { image: 'bbk.png', year: 2006, title: 'Пульт BBK', width: '500px' },
+    { image: 'gruz200.png', year: 2007, title: 'Плакат кинофильма &laquo;Груз 200&raquo;' },
+    { quote: true, text: 'Нет готовых рецептов дизайнерского успеха, потому что их&nbsp;вообще никто не&nbsp;знает.', author: 'Артемий Лебедев<br>худрук' },
+    { image: 'board.png', year: 2008, title: 'Дорожный знак &laquo;Фары и&nbsp;ремень&raquo;' },
+    { image: 'perm.png', year: 2009, title: 'Логотип Перми' },
+    { image: 'smile.png', year: 2011, title: 'Знак &laquo;Фотографировать разрешено&raquo;' },
+    { video: 'lavrus.mp4', year: 2019, title: 'Лаврус' },
+    { image: 'park.png', year: 2012, title: 'Парк Горького' },
+    { image: 'odessa.png', year: 2012, title: 'Логотип Одессы' },
+    { video: 'ironov.mp4', year: 2020, title: 'Николай Иронов' },
+    { quote: true, text: 'Идея ничего не&nbsp;стоит.', author: '&laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
+    { image: 'rubl.png', year: 2013, title: 'Знак рубля', width: '700px' },
+    { image: '18+.png', year: 2013, title: 'Знаки возрастных ограничений' },
+    { image: 'pulkovo.png', year: 2014, title: 'Аэропорт &laquo;Пулково&raquo;' },
+    { image: 'narayone.gif', year: 2022, title: 'На районе' },
+    { image: 'metro.png', year: 2014, title: 'Московское метро' },
+    { image: 'board2.png', year: 2014, title: 'Уличные указатели в&nbsp;Москве' },
+    { quote: true, text: 'Не&nbsp;уживайся с&nbsp;однообразием!', author: '&laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
+    { image: 'yk.png', year: 2014, title: 'Логотип &laquo;Якитории&raquo;' },
+    { image: 'helic.png', year: 2015, title: 'Вертолет &laquo;Скаут&raquo;', width: '1400px', top: '-100px' },
+    { image: 'watch.png', year: 2020, title: 'Часы &laquo;Радиус&raquo;', width: '700px' },
+    { image: 'ru.png', year: 2020, title: 'Знак &laquo;Сделано в&nbsp;России&raquo;' },
+    { image: 'moscow.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'vnukovo.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'station.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'poka.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'teriberka.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: '5.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'akkuyu.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;', top: '-300px' },
+    { image: 'minjust.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'muz.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'rumancevo.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'pattern.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'racia.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;', top: '-300px' },
+    { image: 'bus.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'rzd.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+
+]
+items.forEach((item)=>{
+    createHistoryBlock(item)
+})
+
+function createHistoryBlock(item) {
+    if(!gallery) return
+
+    if(item.quote) {
+        const quote = document.createElement('div')
+        quote.classList.add('quote')
+
+        quote.innerHTML = 
+        '<img src="media/quote.svg">'+
+        '<h1 class="quote-text">'+item.text+'</h1>'+
+        '<p class="quote-author">'+item.author+'</p>'
+
+        gallery.append(quote)
+        return
+    }
+
+    const year =
+    '<div class="date-wrapper">'+
+        '<img src="media/date_bg.svg">'+
+        '<span>'+item.year+'</span>'+
+    '</div>'
+    
+    const title = 
+    '<h2 class="history-block__title">'+item.title+'</h2>'
+
+    let content = ''
+    if(item.image){
+        content = '<img style="transform: translateY('+item.top+')" width="'+item.width+'" class="history-block__image" src="media/blocks/'+item.image+'" alt="'+item.title+'">'
+    } else if(item.video){
+        content = '<video autoplay muted loop playsinline style="transform: translateY('+item.top+')" width="'+item.width+'" class="history-block__image" src="media/blocks/'+item.video+'" alt="'+item.title+'">'
+    }
+
+    const block = document.createElement('div')
+    block.classList.add('history-block')
+    block.innerHTML = year + title + content
+
+    const rotateBlock = document.createElement('div')
+    rotateBlock.classList.add('history-block-rotate')
+    rotateBlock.append(block)
+
+    const perspectiveBlock = document.createElement('div')
+    perspectiveBlock.classList.add('history-block-perspective')
+    perspectiveBlock.append(rotateBlock)
+
+    item.element = perspectiveBlock
+    gallery.append(perspectiveBlock)
+}
+
+window.addEventListener('scroll', init )
+init()
+function init() {
+    const diff = Math.abs(window.scrollY - lastScroll)
+    lastScroll = window.scrollY
+    video.style.filter = 'hue-rotate('+((window.scrollY/100)+90)+'deg) blur(5px) contrast('+(150+diff/2)+'%) brightness('+(100+diff)+'%)'
+    video.style.transform = 'scale('+(1+window.scrollY/20000)+')'
+    items.forEach((item, index)=>{
+        if(item.quote) return
+        const top = item.element.getBoundingClientRect().top
+        const block = item.element.querySelector('.history-block')
+        const scale = Math.min(Math.max(0,(1-top/window.innerHeight/1.5)),3)
+        const rotate = (index%2==0 ? 1 : -1) * top/100
+        const opacity = 1-(Math.abs(top/1.5)/window.innerHeight)
+        block.style.transform = 'scale('+scale+') rotate('+rotate+'deg) translateX('+rotate*10+'px)'
+        block.style.opacity = opacity
+    })
+}
+
+</script>
