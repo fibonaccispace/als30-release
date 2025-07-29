@@ -55,6 +55,10 @@
 #gallery .history-block__image {
     max-width: 70%;
 }
+#gallery .uniq-width {
+    max-width: none;
+    z-index: -1;
+}
 #gallery .history-block__title {
     font-family: als_enormous_m;
     font-size: 28px;
@@ -62,56 +66,45 @@
     margin-bottom: 60px;
     max-width: 350px;
 }
-#gallery .history-block-rotate {
-    transform: rotateX(-2deg);
-}
-#gallery .history-block-perspective {
-    perspective: 200px;
-}
 body {
     background: rgb(0, 0, 0);
     height: 1000vh;
 }
 #background_video {
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     object-fit: cover;
     z-index: -1;
     opacity: 0;
-    transition: opacity 2s ease;
-    transition: filter .2s ease;
-    filter: hue-rotate(90deg);
+    transition: opacity 2s ease height .2s ease-out;
+    filter: hue-rotate(130deg);
 }
 .paralax {
-    perspective: 300px;
     position: fixed;
+    transform: rotateX(-17deg);
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-}
-.paralax-top, .paralax-bottom {
-    position: fixed;
-    width: 150%;
-    height: 150%;
-    top: 0;
-    left: 0%;
-    /* left: 50%; */
-    background: rgba(255,0,0,0.5);
-
-    /* transform: rotateX(-15deg) translate(-50%, 0); */
+    z-index: -1;
 }
 .paralax-item {
     position: absolute;
-    width: 5px;
-    height: 5px;
-    background: rgb(9, 255, 0);
-    transition: s ease;
+    width: 4px;
+    height: 4px;
+    top: 0;
+    left: 0;
+    transform: translate(-50%,-50%);
+    transition: height .3s ease-out;
+    opacity: 0;
+    pointer-events: none;
 }
 .quote {
     max-width: 750px;
-    margin: 0 auto;
+    margin: 0 auto 200px auto;
 }
 .quote img {
     display: block;
@@ -174,9 +167,9 @@ p.main__logo-description {
 
 p.main__logo-description {
     transform: translateY(-100px);
-    max-width: 950px;
+    max-width: 780px;
     font-weight: 50;
-    font-size: 21px;
+    font-size: 28px;
     text-align: center;
     z-index: 1;
 }
@@ -201,22 +194,32 @@ p.main__logo-description {
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
 }
-
-
+.history-block-rotate {
+    transition: .3s ease-out;
+}
+.history-block__video {
+    border-radius: 20px;
+}
+.perspective-block {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    perspective: 200px;
+    width: 100vw;
+    height: 100vh;
+}
 </style>
 <article class="main__logo">
     <video autoplay muted loop playsinline class="main__logo-video">
         <source src="media/txt-alpha-v1.webm" type="video/webm">
     </video>
     <div class="main__particles-list" id="particles-list"></div>
-    <p class="main__logo-description">Когда мы&nbsp;начинали, интернет только учился ходить. За&nbsp;30&nbsp;лет наш дизайн стал голосом известных брендов, лицом важнейших событий и&nbsp;частью культурного контекста. В&nbsp;этом шоуриле&nbsp;&mdash; знаковые проекты, которыми мы&nbsp;гордимся. Став первопроходцами, мы&nbsp;вошли в&nbsp;историю дизайна и&nbsp;продолжаем показывать свое мастерство.</p>
-    <div class="main__logo-be-history">Творить историю</div>
+    <p class="main__logo-description">Когда мы&nbsp;начинали, интернет только учился ходить. За&nbsp;тридцать лет, наш дизайн стал голосом брендов, лицом событий, частью культурного контекста. Тридцать лет назад мы&nbsp;начали с&nbsp;идей, которые опережали свое время.</p>
 </article>
-<div id="gallery"></div>
-<!-- <div class="paralax"> -->
-    <!-- <div class="paralax-top"></div> -->
-<!-- </div> -->
-<!-- <div class="paralax-bottom"></div> -->
+<div id="gallery" style="opacity: 0;"></div>
+<div class="perspective-block">
+    <div class="paralax" id="paralax"></div>
+</div>
 
 <script>
 const video = document.getElementById('background_video')
@@ -224,9 +227,16 @@ video.addEventListener('canplaythrough', () => {
     video.style.opacity = 1
 })
 </script>
+
 <script>
 const gallery = document.getElementById('gallery')
 let lastScroll = window.scrollY
+let frame = true
+let spawnBorder = window.innerHeight
+
+const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+const uniform = (min, max) => (Math.random() * (max - min + 1)) + min
+
 const items = [
     { image: 'yandex.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
     { image: 'rostselmash.png', year: 2004, title: 'Логотип &laquo;Ростсельмаша&raquo;' },
@@ -249,7 +259,7 @@ const items = [
     { image: 'board2.png', year: 2014, title: 'Уличные указатели в&nbsp;Москве' },
     { quote: true, text: 'Не&nbsp;уживайся с&nbsp;однообразием!', author: '&laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
     { image: 'yk.png', year: 2014, title: 'Логотип &laquo;Якитории&raquo;' },
-    { image: 'helic.png', year: 2015, title: 'Вертолет &laquo;Скаут&raquo;', width: '1400px', top: '-100px' },
+    { image: 'helic.png', year: 2015, title: 'Вертолет &laquo;Скаут&raquo;', width: '180%', top: '-20%' },
     { image: 'watch.png', year: 2020, title: 'Часы &laquo;Радиус&raquo;', width: '700px' },
     { image: 'ru.png', year: 2020, title: 'Знак &laquo;Сделано в&nbsp;России&raquo;' },
     { image: 'moscow.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
@@ -258,13 +268,13 @@ const items = [
     { image: 'poka.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
     { image: 'teriberka.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
     { image: '5.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: 'akkuyu.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;', top: '-300px' },
+    { image: 'akkuyu.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;', top: '-30%', width: '100%' },
     { image: 'minjust.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
     { image: 'muz.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
     { image: 'rumancevo.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
     { image: 'pattern.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: 'racia.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;', top: '-300px' },
-    { image: 'bus.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'racia.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;', top: '-30%', width: '80%'},
+    { image: 'bus.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;', width: '100%' },
     { image: 'rzd.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
 
 ]
@@ -299,9 +309,9 @@ function createHistoryBlock(item) {
 
     let content = ''
     if(item.image){
-        content = '<img style="transform: translateY('+item.top+')" width="'+item.width+'" class="history-block__image" src="media/blocks/'+item.image+'" alt="'+item.title+'">'
+        content = '<img style="margin-top: '+item.top+'" width="'+item.width+'" class="history-block__image '+(item.width?'uniq-width':'')+' " src="media/blocks/'+item.image+'" alt="'+item.title+'">'
     } else if(item.video){
-        content = '<video autoplay muted loop playsinline style="transform: translateY('+item.top+')" width="'+item.width+'" class="history-block__image" src="media/blocks/'+item.video+'" alt="'+item.title+'">'
+        content = '<video autoplay muted loop playsinline style="margin-top: '+item.top+'" width="'+item.width+'" class="history-block__image history-block__video" src="media/blocks/'+item.video+'" alt="'+item.title+'">'
     }
 
     const block = document.createElement('div')
@@ -312,31 +322,77 @@ function createHistoryBlock(item) {
     rotateBlock.classList.add('history-block-rotate')
     rotateBlock.append(block)
 
-    const perspectiveBlock = document.createElement('div')
-    perspectiveBlock.classList.add('history-block-perspective')
-    perspectiveBlock.append(rotateBlock)
-
-    item.element = perspectiveBlock
-    gallery.append(perspectiveBlock)
+    item.element = rotateBlock
+    gallery.append(rotateBlock)
 }
 
-window.addEventListener('scroll', init )
-init()
+function createParalaxItem(pos, side) {
+    const item = document.createElement('div')
+    const img = document.createElement('img')
+    const path = 'media/particles/item'+random(1,20)+'.png'
+    img.src = path
+    img.style.width = '100%'
+    img.style.height = '100%'
+    item.append(img)
+    item.classList.add('paralax-item')
+    item.style.top = pos
+    item.style.top = pos
+    item.pos = pos
+    item.speed = uniform(1,1.2)
+    item.style.left = Math.random()*100+'%'
+    paralax.append(item)
+}
+
+
+const paralax = document.getElementById('paralax')
+for(let i = -spawnBorder-100; i < window.innerHeight+spawnBorder+100; i+=50) {
+    if(random(0,100)>80) continue
+    createParalaxItem(i)
+}
+
+window.addEventListener('resize', ()=>{spawnBorder = window.innerHeight})
+
+requestAnimationFrame(init)
 function init() {
-    const diff = Math.abs(window.scrollY - lastScroll)
-    lastScroll = window.scrollY
-    video.style.filter = 'hue-rotate('+((window.scrollY/100)+140)+'deg) blur(5px) contrast('+(150+diff/2)+'%) brightness('+(100+diff)+'%)'
-    video.style.transform = 'scale('+(1+window.scrollY/20000)+')'
-    items.forEach((item, index)=>{
-        if(item.quote) return
-        const top = item.element.getBoundingClientRect().top
-        const block = item.element.querySelector('.history-block')
-        const scale = Math.min(Math.max(0,(1-top/window.innerHeight/1.5)),3)
-        const rotate = top/130
-        const opacity = 1-(Math.abs(top/1.5)/window.innerHeight)
-        block.style.transform = 'scale('+scale+') rotate('+rotate+'deg) translateX('+rotate*10+'px)'
-        block.style.opacity = opacity
+    requestAnimationFrame(init)
+    if(frame < 30) {
+        lastScroll = window.scrollY
+        frame++
+        return
+    }
+
+    const diffAbs = Math.abs(window.scrollY - lastScroll)
+    const diff = window.scrollY - lastScroll
+
+    video.style.filter = 'hue-rotate('+(130+window.scrollY/100)+'deg) blur(5px)'
+
+    const paralax_items = document.querySelectorAll('.paralax-item')
+    paralax_items.forEach((item)=>{
+        item.pos -= diff*item.speed
+        item.style.top = item.pos + 'px'
+        item.style.opacity = diffAbs/10
+        item.style.height = Math.max(diffAbs*20,0)+'px'
+        item.style.filter = 'hue-rotate('+diffAbs/10+'deg)'
+        if(item.pos < -spawnBorder-100) {
+            item.remove()
+            createParalaxItem(window.innerHeight + spawnBorder-random(0,spawnBorder))
+        }
+        if(item.pos > window.innerHeight+spawnBorder+100) {
+            item.remove()
+            createParalaxItem(-spawnBorder+random(0,spawnBorder))
+        }
     })
+
+    items.forEach((item)=>{
+        const element = item.element
+        if(element && !item.quote){
+            element.style.transform = 'scaleY('+(1+Math.min(diffAbs/300,.3))+')'
+        }
+    })
+
+    lastScroll = window.scrollY
 }
+
+
 
 </script>
