@@ -79,7 +79,7 @@ body {
     object-fit: cover;
     z-index: -1;
     opacity: 0;
-    transition: opacity 2s ease height .2s ease-out;
+    transition: 2s ease;
     filter: hue-rotate(130deg);
 }
 .paralax {
@@ -122,11 +122,34 @@ body {
     font-size: 21px;
     text-align: center;
 }
+.bg-video {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+#background_video2 {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0;
+    transition: 2s ease;
+    transform: scale(-1);
+    filter: hue-rotate(130deg);
+}
 </style>
 
+<div class="bg-video">
 <video autoplay muted loop playsinline id="background_video">
     <source src="media/background.mp4" type="video/mp4">
 </video>
+<video autoplay muted loop playsinline id="background_video2">
+    <source src="media/background.mp4" type="video/mp4">
+</video>
+</div>
 
 <style>
 .main__logo-video {
@@ -136,24 +159,16 @@ p.main__logo-description {
     font-family: als_enormous_r;
 }
 .main__logo-be-history {
-    transform: translateY(-25px);
     font-family: als_enormous_m;
     font-size: 21px;
     text-align: center;
 }
 .main__logo-be-history {
-    background: white;
-    color: black;
-    border-radius: 100px;
-    padding: 16px 24px;
+    color: white;
     cursor: pointer;
     transition: 1s ease;
 }
-.main__logo-be-history:hover {
-    box-shadow: 0 20px 90px 0 white;
-}
 .main__logo {
-    padding-top: 30vh;
     height: 100vh;
     margin-bottom: 40vh;
     position: relative;
@@ -166,7 +181,6 @@ p.main__logo-description {
 }
 
 p.main__logo-description {
-    transform: translateY(-100px);
     max-width: 780px;
     font-weight: 50;
     font-size: 28px;
@@ -208,6 +222,15 @@ p.main__logo-description {
     width: 100vw;
     height: 100vh;
 }
+#finish {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 </style>
 <article class="main__logo">
     <video autoplay muted loop playsinline class="main__logo-video">
@@ -217,14 +240,21 @@ p.main__logo-description {
     <p class="main__logo-description">Когда мы&nbsp;начинали, интернет только учился ходить. За&nbsp;тридцать лет, наш дизайн стал голосом брендов, лицом событий, частью культурного контекста. Тридцать лет назад мы&nbsp;начали с&nbsp;идей, которые опережали свое время.</p>
 </article>
 <div id="gallery"></div>
+<div id="finish">
+    <div class="main__logo-be-history">Стать частью истории</div>
+</div>
 <div class="perspective-block">
     <div class="paralax" id="paralax"></div>
 </div>
 
 <script>
 const video = document.getElementById('background_video')
+const video2 = document.getElementById('background_video2')
 video.addEventListener('canplaythrough', () => {
     video.style.opacity = 1
+})
+video2.addEventListener('canplaythrough', () => {
+    video2.style.opacity = 1
 })
 </script>
 
@@ -343,7 +373,7 @@ function createParalaxItem(pos, side) {
     paralax.append(item)
 }
 
-
+const finish = document.getElementById('finish')
 const paralax = document.getElementById('paralax')
 for(let i = -spawnBorder-100; i < window.innerHeight+spawnBorder+100; i+=50) {
     if(random(0,100)>80) continue
@@ -365,6 +395,12 @@ function init() {
     const diff = window.scrollY - lastScroll
 
     video.style.filter = 'hue-rotate('+(130+window.scrollY/100)+'deg) blur(5px)'
+    video2.style.filter = 'hue-rotate('+(130+window.scrollY/100)+'deg) blur(5px)'
+
+    if(finish.getBoundingClientRect().top < window.innerHeight) {
+        const size = finish.getBoundingClientRect().top/window.innerHeight
+        video.style.transform = 'translateY(14px) scaleY('+Math.min(Math.max(0.005, size), 1)+')'
+    }
 
     const paralax_items = document.querySelectorAll('.paralax-item')
     paralax_items.forEach((item)=>{
