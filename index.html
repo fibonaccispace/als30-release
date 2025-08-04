@@ -83,12 +83,13 @@ body {
     filter: hue-rotate(130deg);
 }
 .paralax {
+    margin-top: 10%;
     position: fixed;
-    transform: rotateX(-17deg);
+    transform: rotateX(-12deg);
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 120%;
     z-index: -1;
 }
 .paralax-item {
@@ -99,7 +100,7 @@ body {
     left: 0;
     transform: translate(-50%,-50%);
     transition: height .3s ease-out;
-    opacity: 0;
+    opacity: 1;
     pointer-events: none;
 }
 .quote {
@@ -174,15 +175,8 @@ p.main__logo-description {
     transition: 1s ease;
 }
 .main__logo {
-    height: 100vh;
     margin-bottom: 40vh;
     position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 p.main__logo-description {
@@ -190,7 +184,9 @@ p.main__logo-description {
     font-weight: 50;
     font-size: 28px;
     text-align: center;
-    z-index: 1;
+    z-index: 10;
+    position: relative;
+    margin: -10% auto 50px auto;
 }
 
 .main__logo .main__logo-image {
@@ -233,20 +229,117 @@ p.main__logo-description {
 
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
 }
 
+.be-history-bg:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(red, white);
+    top: 0;
+    left: 0;
+    transition: 1s;
+}
+.be-history-bg {
+    margin: 50px auto 0 auto;
+    width: fit-content;
+    overflow: hidden;
+    position: relative;
+    border-radius: 300px;
+    background: white;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 1s, transform .8s;
+    box-shadow: 0 20px 200px 40px rgba(255,0,0,.8);
+}
+.be-history-content {
+    width: fit-content;
+    overflow: hidden;
+    position: relative;
+    border-radius: 300px;
+    background: red;
+    padding: 15px 70px 25px 70px;
+    cursor: pointer;
+    
+    font-size: 36px;
+    font-family: als_enormous_m;
+    box-shadow: inset 0 10px 15px rgba(255, 0, 0, 1)
+}
+.be-history-content:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgb(255, 158, 158), red);
+    transition: 1s;
+}
+.be-history-content span {
+    position: relative;
+    z-index: 10;
+    user-select: none;
+}
+
+
+
+.be-history-bg:hover:before {
+    transform: translate(0, -100%);
+}
+.be-history-content:hover:before {
+    transform: translate(0, -100%);
+}
+.be-history-bg:active {
+    transform: scale(1) !important;
+    transition: transform .4s;
+}
+.be-history-bg:hover {
+    box-shadow: 0 20px 200px 40px rgba(255,0,0,1);
+    transform: scale(1.05) translateY(-5px);
+}
+.be-history-fized {
+    user-select: none;
+    cursor: pointer;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    z-index: 1000;
+    background: blue;
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-family: als_enormous_m;
+}
+
+
+
+
 </style>
+<div class="be-history-fized">Стать частью истории</div>
 <article class="main__logo">
     <video autoplay muted loop playsinline class="main__logo-video">
         <source src="media/txt-alpha-v1.webm" type="video/webm">
     </video>
     <div class="main__particles-list" id="particles-list"></div>
     <p class="main__logo-description">Когда мы&nbsp;начинали, интернет только учился ходить. За&nbsp;тридцать лет, наш дизайн стал голосом брендов, лицом событий, частью культурного контекста. Тридцать лет назад мы&nbsp;начали с&nbsp;идей, которые опережали свое время.</p>
+    <div class="be-history-bg">
+        <div class="be-history-content">
+            <span>Стать частью истории</span>
+        </div>
+    </div>
 </article>
 <div id="gallery"></div>
 <div id="finish">
-    <div class="main__logo-be-history">Стать частью истории</div>
+    <img src="media/als30.svg" style="z-index: 100;">
+    <div class="be-history-bg">
+        <div class="be-history-content">
+            <span>Стать частью истории</span>
+        </div>
+    </div>
 </div>
 <div class="perspective-block">
     <div class="paralax" id="paralax"></div>
@@ -263,10 +356,12 @@ p.main__logo-description {
 const gallery = document.getElementById('gallery')
 let lastScroll = window.scrollY
 let frame = true
-let spawnBorder = window.innerHeight
+let spawnBorder = 50
+const finish = document.getElementById('finish')
 
 const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 const uniform = (min, max) => (Math.random() * (max - min + 1)) + min
+const minmax = (min, value, max) => Math.min(Math.max(min, value), max)
 
 const images = [
     'item1.png', 'item2.png', 'item3.png', 'item4.png', 
@@ -422,7 +517,6 @@ const items = [
     // Лифт СЛЗ 
 ]
 
-
 items.forEach((item)=>{
     createHistoryBlock(item)
 })
@@ -471,7 +565,7 @@ function createHistoryBlock(item) {
     gallery.append(rotateBlock)
 }
 
-function createParalaxItem(pos, side) {
+function createParalaxItem(pos, velocity) {
     const item = document.createElement('div')
     const img = document.createElement('img')
     const path = 'media/particles/item'+random(1,20)+'.png'
@@ -479,26 +573,27 @@ function createParalaxItem(pos, side) {
     img.style.width = '100%'
     img.style.height = '100%'
     item.append(img)
+
     item.classList.add('paralax-item')
-    item.style.top = pos
-    item.style.top = pos
+    item.style.top = pos+'%'
     item.pos = pos
-    item.speed = uniform(1,1.2)
+    item.velocity = (velocity?velocity:0)
+    item.speed = uniform(1,1.4)
     item.style.left = Math.random()*100+'%'
     paralax.append(item)
 }
 
-const finish = document.getElementById('finish')
 const paralax = document.getElementById('paralax')
-for(let i = -spawnBorder-100; i < window.innerHeight+spawnBorder+100; i+=50) {
-    if(random(0,100)>80) continue
-    createParalaxItem(i)
+for(let i = 0; i < 100; i++) {
+    if(random(0,100)>50) continue
+    createParalaxItem(random(0,100)+random(-spawnBorder,spawnBorder))
 }
 
 window.addEventListener('resize', ()=>{spawnBorder = window.innerHeight})
 
 requestAnimationFrame(init)
 function init() {
+
     requestAnimationFrame(init)
     if(frame < 30) {
         lastScroll = window.scrollY
@@ -510,22 +605,30 @@ function init() {
     const diff = window.scrollY - lastScroll
 
     // video.style.filter = 'hue-rotate('+(130+window.scrollY/100)+'deg) blur(5px)'
-
     const paralax_items = document.querySelectorAll('.paralax-item')
     paralax_items.forEach((item)=>{
-        item.pos -= diff*item.speed
-        item.style.top = item.pos + 'px'
-        item.style.opacity = diffAbs/10
-        item.style.height = Math.max(diffAbs*20,0)+'px'
-        item.style.filter = 'hue-rotate('+diffAbs/10+'deg)'
-        if(item.pos < -spawnBorder-100) {
-            item.remove()
-            createParalaxItem(window.innerHeight + spawnBorder-random(0,spawnBorder))
+        if(finish.getBoundingClientRect().top < 100){
         }
-        if(item.pos > window.innerHeight+spawnBorder+100) {
-            item.remove()
-            createParalaxItem(-spawnBorder+random(0,spawnBorder))
+        item.velocity += diff*item.speed*0.5
+        if(finish.getBoundingClientRect().top < 100){
+            item.velocity += 20
         }
+        item.velocity = minmax(-100,item.velocity,100)
+        item.pos -= item.velocity*0.05
+        item.style.top = item.pos + '%'
+        // item.style.opacity = Math.abs(item.velocity)/10
+        // item.style.opacity = 1
+        item.style.height = minmax(5, Math.abs(item.velocity)*5, 1000) + 'px'
+        // item.style.filter = 'hue-rotate('+diffAbs/10+'deg)'
+        if(item.pos > 100+spawnBorder) {
+            item.remove()
+            createParalaxItem(random(-spawnBorder,0), item.velocity*0.8)
+        }
+        if(item.pos < -spawnBorder) {
+            item.remove()
+            createParalaxItem(100+random(0,spawnBorder), item.velocity*0.8)
+        }
+        item.velocity/=1.2
     })
 
     items.forEach((item)=>{
