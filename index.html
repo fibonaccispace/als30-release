@@ -358,6 +358,7 @@ let lastScroll = window.scrollY
 let frame = true
 let spawnBorder = 50
 const finish = document.getElementById('finish')
+const quotes = []
 
 const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 const uniform = (min, max) => (Math.random() * (max - min + 1)) + min
@@ -534,6 +535,7 @@ function createHistoryBlock(item) {
         '<p class="quote-author">'+item.author+'</p>'
 
         gallery.append(quote)
+        quotes.push(quote)
         return
     }
 
@@ -568,7 +570,7 @@ function createHistoryBlock(item) {
 function createParalaxItem(pos, velocity) {
     const item = document.createElement('div')
     const img = document.createElement('img')
-    const path = 'media/particles/item'+random(1,20)+'.png'
+    const path = 'media/particles/item'+random(0,51)+'.png'
     img.src = path
     img.style.width = '100%'
     img.style.height = '100%'
@@ -610,7 +612,7 @@ function init() {
         if(finish.getBoundingClientRect().top < 100){
         }
         item.velocity += diff*item.speed*0.5
-        if(finish.getBoundingClientRect().top < 100){
+        if(finish.getBoundingClientRect().top < 100 || someQuote()){
             item.velocity += 20
         }
         item.velocity = minmax(-100,item.velocity,100)
@@ -639,6 +641,16 @@ function init() {
     })
 
     lastScroll = window.scrollY
+}
+
+function someQuote() {
+    const center = window.innerHeight / 2
+    const margin = window.innerHeight / 4
+
+    return quotes.some(q => {
+        const rect = q.getBoundingClientRect()
+        return rect.top <= center + margin && rect.bottom >= center - margin
+    })
 }
 
 
