@@ -64,7 +64,7 @@
     font-size: 28px;
     text-align: center;
     margin-bottom: 60px;
-    max-width: 350px;
+    max-width: 600px;
 }
 body {
     background: rgb(0, 0, 0);
@@ -103,7 +103,7 @@ body {
     pointer-events: none;
 }
 .quote {
-    max-width: 750px;
+    max-width: 800px;
     margin: 0 auto 200px auto;
 }
 .quote img {
@@ -116,6 +116,13 @@ body {
     font-size: 48px;
     text-align: center;
     margin-bottom: 26px;
+}
+.quote:has(.giant) {
+    max-width: 90%;
+}
+.quote .giant {
+    font-size: 128px;
+    line-height: 110%;
 }
 .quote-author {
     font-family: als_enormous_r;
@@ -144,9 +151,9 @@ body {
 </style>
 
 <div class="bg-video">
-<video autoplay muted loop playsinline id="background_video">
+<!-- <video autoplay muted loop playsinline id="background_video">
     <source src="media/background.mp4" type="video/mp4">
-</video>
+</video> -->
 </div>
 
 <style>
@@ -246,10 +253,10 @@ p.main__logo-description {
 </div>
 
 <script>
-const video = document.getElementById('background_video')
-video.addEventListener('canplaythrough', () => {
-    video.style.opacity = 1
-})
+//const video = document.getElementById('background_video')
+//video.addEventListener('canplaythrough', () => {
+//    video.style.opacity = 1
+//})
 </script>
 
 <script>
@@ -334,46 +341,87 @@ for(let i = 0; i < images.length; i++){
 }
 
 const items = [
-    { image: 'yandex.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { image: 'ya.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
     { image: 'rostselmash.png', year: 2004, title: 'Логотип &laquo;Ростсельмаша&raquo;' },
     { image: 'bbk.png', year: 2006, title: 'Пульт BBK', width: '500px' },
-    { image: 'gruz200.png', year: 2007, title: 'Плакат кинофильма &laquo;Груз 200&raquo;' },
-    { quote: true, text: 'Нет готовых рецептов дизайнерского успеха, потому что их&nbsp;вообще никто не&nbsp;знает.', author: 'Артемий Лебедев<br>худрук' },
-    { image: 'board.png', year: 2008, title: 'Дорожный знак &laquo;Фары и&nbsp;ремень&raquo;' },
+    { image: 'gruz200.png', year: 2007, title: 'Плакат кинофильма<br>&laquo;Груз 200&raquo;' },
+    { quote: true, text: 'Нет готовых рецептов дизайнерского успеха, потому что их&nbsp;вообще никто&nbsp;не&nbsp;знает.', author: 'Артемий Лебедев<br>худрук' },
+    { image: 'board1.png', year: 2008, title: 'Дорожный знак<br>&laquo;Фары и&nbsp;ремень&raquo;' },
     { image: 'perm.png', year: 2009, title: 'Логотип Перми' },
-    { image: 'smile.png', year: 2011, title: 'Знак &laquo;Фотографировать разрешено&raquo;' },
-    { video: 'lavrus.mp4', year: 2019, title: 'Лаврус' },
-    { image: 'park.png', year: 2012, title: 'Парк Горького' },
+    { image: 'bigt.png', year: 2011, title: 'Большой театр', width: '180%' },
+    { image: 'smile.png', year: 2011, title: 'Знак &laquo;Фотографировать<br>разрешено&raquo;' },
+    { quote: true, text: 'Идея ничего не&nbsp;стоит.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
+    { image: 'park2.png', year: 2012, title: 'Парк Горького', top: '-15%' },
     { image: 'odessa.png', year: 2012, title: 'Логотип Одессы' },
-    { video: 'ironov.mp4', year: 2020, title: 'Николай Иронов' },
-    { quote: true, text: 'Идея ничего не&nbsp;стоит.', author: '&laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
     { image: 'rubl.png', year: 2013, title: 'Знак рубля', width: '700px' },
-    { image: '18+.png', year: 2013, title: 'Знаки возрастных ограничений' },
-    { image: 'pulkovo.png', year: 2014, title: 'Аэропорт &laquo;Пулково&raquo;' },
-    { image: 'narayone.gif', year: 2022, title: 'На районе' },
+    { image: '18+.png', year: 2013, title: 'Знаки возрастных<br>ограничений' },
+    { image: 'pulk.png', year: 2014, title: 'Аэропорт &laquo;Пулково&raquo;' },
+    { quote: true, text: 'Не&nbsp;уживайся с&nbsp;однообразием!', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
     { image: 'metro.png', year: 2014, title: 'Московское метро' },
-    { image: 'board2.png', year: 2014, title: 'Уличные указатели в&nbsp;Москве' },
-    { quote: true, text: 'Не&nbsp;уживайся с&nbsp;однообразием!', author: '&laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
+    { image: 'board3.png', year: 2014, title: 'Уличные указатели в&nbsp;Москве' },
     { image: 'yk.png', year: 2014, title: 'Логотип &laquo;Якитории&raquo;' },
     { image: 'helic.png', year: 2015, title: 'Вертолет &laquo;Скаут&raquo;', width: '180%', top: '-20%' },
+    { image: 'parking.png', year: 2015, title: 'Московские парковки', width: '40%'},
+    { quote: true, text: 'Звезда&nbsp;&mdash; наше всё.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
+    { image: 'mail.png', year: 2015, title: 'Почтовые ящики<br>Почты России' },
+    { image: 'mos.png', year: 2015, title: 'Промо-сайт<br>&laquo;Узнай Москву&raquo;', top: '-15%' },
+    { image: 'luzh.png', year: 2016, title: 'Фасады и&nbsp;навигация<br>Лужников' },
+    { image: 'rumancevo.png', year: 2016, title: 'Шрифтовое оформление станции метро &laquo;Румянцево&raquo;' },
+    { image: 'aicar.png', year: 2016, title: 'Дорожный знак &laquo;Движение беспилотных транспортных средств&raquo;' },
+    { quote: true, text: 'Умение оценивать хороший дизайн является не&nbsp;меньшим достижением, чем умение его создавать.', author: 'Артемий Лебедев.<br>&laquo;Ководство&raquo;' },
+    { image: 'cska.png', year: 2016, title: 'Проекты ХК&nbsp;ЦСКА' },
+    { image: 'zar.png', year: 2017, title: 'Навигация парка Зарядье' },
+    { image: 'pattern.png', year: 2017, title: 'Паттерн для сидений московского наземного транспорта', width: '100%' },
+    { image: 'nike.png', year: 2017, title: 'Кроссовок<br>Найк' },
+    { image: 'racia.png', year: 2018, title: 'Радиостанции<br>Созвездие', top: '-40%', width: '80%'},
+    { quote: true, text: 'Завязывай<br>со стилизацией!', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
+    { image: 'clock.png', year: 2018, title: 'Навигация Шереметьево' },
+    { image: 'vdnh.png', year: 2018, title: 'Навигация ВДНХ' },
+    { image: 'electrobus.png', year: 2018, title: 'Это электробус', width: '95%' },
+    { image: 'comm.png', year: 2018, title: 'Визуальная коммуникация для наземного транспорта Москвы' },
+    { image: 'ag.png', year: 2018, title: 'Айдентика проекта &laquo;Активный гражданин&raquo;' },
+    { quote: true, text: 'Лучшие идеи приходят к&nbsp;тем,&nbsp;для кого решаемая проблема&nbsp;&mdash; личная.', author: 'Сергей Кулинкович<br>арт-директор' },
+    { image: 'ball.png', year: 2018, title: 'Проекты РПЛ' },
+    { image: 'krasnodar.png', year: 2019, title: 'Навигация стадиона и&nbsp;парка Краснодар' },
+    { image: 'federatsia.png', year: 2019, title: 'Айдентика Башни Федерация' },
+    { image: 'zoo.png', year: 2019, title: 'Московский зоопарк' },
+    { image: 'rzd.png', year: 2019, title: 'Электронный билет РЖД' },
+    { quote: true, text: 'Делай в&nbsp;лоб!', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;', size: true },
+    { image: 'mp.png', year: 2019, title: 'Моя поликлиника' },
+    { image: 'aml.png', year: 2019, title: 'Асикс и&nbsp;Метро', top: '-7%' },
+    { image: 'mascots.png', year: 2016, title: 'Талисманы &laquo;Команды России&raquo;' },
+    { image: 'leningrad.png', year: 2016, title: 'Ленинград' },
+    { video: 'lavrus.mp4', year: 2019, title: 'Лаврус' },
+    { quote: true, text: 'Сделать хорошо возможно с&nbsp;любым набором ограничений.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
     { image: 'watch.png', year: 2020, title: 'Часы &laquo;Радиус&raquo;', width: '700px' },
+    { image: 'ykutsk.png', year: 2020, title: 'Дизайн-код Якутска' },
+    { video: 'ironov.mp4', year: 2020, title: 'Николай Иронов' },
     { image: 'ru.png', year: 2020, title: 'Знак &laquo;Сделано в&nbsp;России&raquo;' },
-    { image: 'moscow.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: 'vnukovo.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: 'station.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: 'poka.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: 'teriberka.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: '5.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: 'akkuyu.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;', top: '-30%', width: '100%' },
-    { image: 'minjust.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: 'muz.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: 'rumancevo.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: 'pattern.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: 'racia.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;', top: '-30%', width: '80%'},
-    { image: 'bus.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;', width: '100%' },
-    { image: 'rzd.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-
+    { image: 'aqua.png', year: 2020, title: 'Сайт &laquo;Аквариума&raquo; 2.0', width: '125%', top: '-30%' },
+    { quote: true, text: 'Не&nbsp;надо стесняться пробовать и&nbsp;делать&nbsp;то, что другим кажется ерундой.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
+    { image: 'comm2.png', year: 2021, title: 'Новый язык коммуникаций Московского транспорта' },
+    { image: 'metrovagonmash.png', year: 2021, title: 'Таблички и&nbsp;наклейки для поездов Метровагонмаша' },
+    { image: 'vnukovo.png', year: 2022, title: 'Навигация<br>для аэропорта Внуково', top: '-8%' },
+    { image: 'noyabrsk.png', year: 2022, title: 'Остановки общественного транспорта Ноябрьска' },
+    { image: 'narayone.gif', year: 2022, title: 'На районе' },
+    { quote: true, text: 'Люби недолюбленное!', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
+    { image: 'poka.png', year: 2022, title: 'Дорожный знак &laquo;Чмоки и&nbsp;поки&raquo;' },
+    { image: 'teriberka.png', year: 2022, title: 'Стела для Териберки' },
+    // Сайт истории российского флага
+    // Вторая версия сайта Конституции России
+    { image: 'dobro.png', year: 2023, title: 'Логотип проекта<br>&laquo;Добродел&raquo;' },
+    { quote: true, text: 'Дизайн&nbsp;&mdash; это стратегия.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
+    { image: 'ufa.png', year: 2023, title: 'Туристическая навигация<br>для Уфы' },
+    { image: '5.png', year: 2023, title: 'Интерьеры магазинов<br>&laquo;Пятёрочка&raquo;' },
+    { image: 'akkuyu.png', year: 2023, title: 'Сайт атомной электростанции<br>&laquo;Аккую&raquo;', top: '-30%', width: '100%' },
+    { image: 'm11.png', year: 2024, title: 'Название и&nbsp;логотип<br>&laquo;М11&nbsp;Подмосковье&raquo;', top: '-12%' },
+    { image: 'minjust.png', year: 2024, title: 'Айдентика<br>Министерства юстиции<br>Российской Федерации' },
+    { quote: true, text: 'Дизайн&nbsp;&mdash; это война.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
+    // Сайт Министерства энергетики Российской Федерации
+    { image: 'mur.png', year: 2024, title: 'Мурманск' },
+    // Лифт СЛЗ 
 ]
+
 items.forEach((item)=>{
     createHistoryBlock(item)
 })
@@ -387,7 +435,7 @@ function createHistoryBlock(item) {
 
         quote.innerHTML = 
         '<img src="media/quote.svg">'+
-        '<h1 class="quote-text">'+item.text+'</h1>'+
+        (item.size ? '<h1 class="quote-text giant">'+item.text+'</h1>' : '<h1 class="quote-text">'+item.text+'</h1>') +
         '<p class="quote-author">'+item.author+'</p>'
 
         gallery.append(quote)
@@ -460,12 +508,7 @@ function init() {
     const diffAbs = Math.abs(window.scrollY - lastScroll)
     const diff = window.scrollY - lastScroll
 
-    video.style.filter = 'hue-rotate('+(130+window.scrollY/100)+'deg) blur(5px)'
-
-    if(finish.getBoundingClientRect().top < window.innerHeight) {
-        const size = finish.getBoundingClientRect().top/window.innerHeight
-        video.style.transform = 'translateY(14px) scaleY('+Math.min(Math.max(0.005, size), 1)+')'
-    }
+    // video.style.filter = 'hue-rotate('+(130+window.scrollY/100)+'deg) blur(5px)'
 
     const paralax_items = document.querySelectorAll('.paralax-item')
     paralax_items.forEach((item)=>{
