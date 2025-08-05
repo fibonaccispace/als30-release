@@ -106,6 +106,8 @@ body {
 .quote {
     max-width: 800px;
     margin: 0 auto 200px auto;
+    position: relative;
+    z-index: 10;
 }
 .quote img {
     display: block;
@@ -570,7 +572,7 @@ function createHistoryBlock(item) {
 function createParalaxItem(pos, velocity) {
     const item = document.createElement('div')
     const img = document.createElement('img')
-    const path = 'media/particles/item'+random(0,51)+'.png'
+    const path = 'media/particles/item'+random(0,50)+'.png'
     img.src = path
     img.style.width = '100%'
     img.style.height = '100%'
@@ -636,7 +638,9 @@ function init() {
     items.forEach((item)=>{
         const element = item.element
         if(element && !item.quote){
-            element.style.transform = 'scaleY('+(1+Math.min(diffAbs/300,.3))+')'
+            // element.style.transform = 'scaleY('+(1+Math.min(diffAbs/300,.3))+')'
+            element.style.transform = 'scale('+(1-Math.min(diffAbs/300,.3))+')'
+            // element.style.transform = 'scale('+(minmax(.3,1-element.getBoundingClientRect().top/1400,2))+')'
         }
     })
 
