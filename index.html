@@ -168,6 +168,8 @@ body {
 <style>
 .main__logo-video {
     width: 100%;
+    opacity: 0;
+    transition: 1.2s ease;
 }
 p.main__logo-description {
     font-family: als_enormous_r;
@@ -368,6 +370,13 @@ p.main__logo-description {
 //video.addEventListener('canplaythrough', () => {
 //    video.style.opacity = 1
 //})
+
+const video = document.querySelector('.main__logo-video')
+video.addEventListener('canplaythrough', () => {
+    setTimeout(()=>{
+       video.style.opacity = 1
+    },200)
+})
 </script>
 
 <script>
@@ -398,7 +407,6 @@ const positions = [
     { x: 69, y: 96, z: 1 }, { x: 87, y: 83, z: 1 }, { x: 19, y: 84, z: 1 }, { x: 30, y: 13, z: 1 },
 ]
 
-const offset = random(0, images.length)
 const wrapper = document.getElementById('particles-list')
 const finishWrapper = document.querySelector('.finish-particles')
 
@@ -406,6 +414,7 @@ fillBlockFixedParticles(wrapper)
 fillBlockFixedParticles(finishWrapper)
 
 function fillBlockFixedParticles(where) {
+    const offset = random(0, images.length)
     for(let i = 0; i < images.length; i++){
         const path = images[i]
         const index = (i+offset)%positions.length
