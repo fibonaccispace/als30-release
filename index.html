@@ -58,6 +58,7 @@
     text-align: center;
 }
 #gallery .history-block__image {
+    user-select: none;
     max-width: 70%;
 }
 #gallery .uniq-width {
@@ -231,6 +232,7 @@ p.main__logo-description {
     height: 100vh;
 }
 #finish {
+    position: relative;
     width: 100%;
     height: 100vh;
 
@@ -303,7 +305,7 @@ p.main__logo-description {
 }
 .be-history-bg:active {
     transform: scale(1) !important;
-    transition: transform .4s;
+    transition: transform .2s;
 }
 .be-history-bg:hover {
     box-shadow: 0 20px 200px 40px rgba(255,0,0,1);
@@ -320,6 +322,14 @@ p.main__logo-description {
     padding: 10px 20px;
     border-radius: 100px;
     font-family: als_enormous_m;
+}
+
+.finish-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -341,6 +351,7 @@ p.main__logo-description {
 </article>
 <div id="gallery"></div>
 <div id="finish">
+    <div class="finish-particles"></div>
     <img src="media/als30.svg" style="z-index: 100;">
     <div class="be-history-bg">
         <div class="be-history-content">
@@ -389,59 +400,67 @@ const positions = [
 
 const offset = random(0, images.length)
 const wrapper = document.getElementById('particles-list')
+const finishWrapper = document.querySelector('.finish-particles')
 
-for(let i = 0; i < images.length; i++){
-    const path = images[i]
-    const index = (i+offset)%positions.length
-    const rotate = uniform(-30, 30)
-    const scale = uniform(0.5, 1)
+fillBlockFixedParticles(wrapper)
+fillBlockFixedParticles(finishWrapper)
 
-    const item = document.createElement('img')
-    item.src = 'media/particles/'+path
-    item.classList.add('main__particles-item')
-    item.style.position = 'absolute'
-    item.style.top = positions[index].y + '%'
-    item.style.left = positions[index].x + '%'
-    item.style.zIndex = positions[index].z
-    item.style.transform = 'translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ')'
-    item.style.webkitTransform = item.style.transform
-    item.style.opacity = 0
-    item.style.width = '0px'
-    item.style.height = '0px'
-    item.style.transition = 'all .5s ease'
-    item.style.webkitTransition = 'all .5s ease'
+function fillBlockFixedParticles(where) {
+    for(let i = 0; i < images.length; i++){
+        const path = images[i]
+        const index = (i+offset)%positions.length
+        const rotate = uniform(-30, 30)
+        const scale = uniform(0.5, 1)
 
-    setTimeout(() => {
-        item.style.opacity = 1
-        item.style.width = '16px'
-        item.style.height = '16px'
-    }, random(100, 500))
+        const item = document.createElement('img')
+        item.src = 'media/particles/'+path
+        item.classList.add('main__particles-item')
+        item.style.position = 'absolute'
+        item.style.top = positions[index].y + '%'
+        item.style.left = positions[index].x + '%'
+        item.style.zIndex = positions[index].z
+        item.style.transform = 'translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ')'
+        item.style.webkitTransform = item.style.transform
+        item.style.opacity = 0
+        item.style.width = '0px'
+        item.style.height = '0px'
+        item.style.transition = 'all .5s ease'
+        item.style.webkitTransition = 'all .5s ease'
 
-    const style = document.createElement('style')
-    const keyframes =
-    '@keyframes floatItem' + index + ' {' +
-        '0% { transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-40, 41) + 'px,' + random(-40, 41) + 'px) rotate(' + uniform(-20, 20) + 'deg) }' +
-        '25% { transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-40, 41) + 'px,' + random(-40, 41) + 'px) rotate(' + uniform(-20, 20) + 'deg) }' +
-        '50% { transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-40, 41) + 'px,' + random(-40, 41) + 'px) rotate(' + uniform(-20, 20) + 'deg) }' +
-        '75% { transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-40, 41) + 'px,' + random(-40, 41) + 'px) rotate(' + uniform(-20, 20) + 'deg) }' +
-        '100% { transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-40, 41) + 'px,' + random(-40, 41) + 'px) rotate(' + uniform(-20, 20) + 'deg) }' +
-    '}' +
-    '@-webkit-keyframes floatItem' + index + ' {' +
-        '0% { -webkit-transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-20, 21) + 'px,' + random(-20, 21) + 'px) rotate(' + uniform(-10, 10) + 'deg) }' +
-        '25% { -webkit-transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-20, 21) + 'px,' + random(-20, 21) + 'px) rotate(' + uniform(-10, 10) + 'deg) }' +
-        '50% { -webkit-transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-20, 21) + 'px,' + random(-20, 21) + 'px) rotate(' + uniform(-10, 10) + 'deg) }' +
-        '75% { -webkit-transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-20, 21) + 'px,' + random(-20, 21) + 'px) rotate(' + uniform(-10, 10) + 'deg) }' +
-        '100% { -webkit-transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-20, 21) + 'px,' + random(-20, 21) + 'px) rotate(' + uniform(-10, 10) + 'deg) }' +
-    '}'
+        setTimeout(() => {
+            item.style.opacity = 1
+            item.style.width = '16px'
+            item.style.height = '16px'
+        }, random(100, 500))
 
-    style.textContent = keyframes
-    document.head.appendChild(style)
+        const style = document.createElement('style')
+        const keyframes =
+        '@keyframes floatItem' + index + ' {' +
+            '0% { transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-40, 41) + 'px,' + random(-40, 41) + 'px) rotate(' + uniform(-20, 20) + 'deg) }' +
+            '25% { transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-40, 41) + 'px,' + random(-40, 41) + 'px) rotate(' + uniform(-20, 20) + 'deg) }' +
+            '50% { transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-40, 41) + 'px,' + random(-40, 41) + 'px) rotate(' + uniform(-20, 20) + 'deg) }' +
+            '75% { transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-40, 41) + 'px,' + random(-40, 41) + 'px) rotate(' + uniform(-20, 20) + 'deg) }' +
+            '100% { transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-40, 41) + 'px,' + random(-40, 41) + 'px) rotate(' + uniform(-20, 20) + 'deg) }' +
+        '}' +
+        '@-webkit-keyframes floatItem' + index + ' {' +
+            '0% { -webkit-transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-20, 21) + 'px,' + random(-20, 21) + 'px) rotate(' + uniform(-10, 10) + 'deg) }' +
+            '25% { -webkit-transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-20, 21) + 'px,' + random(-20, 21) + 'px) rotate(' + uniform(-10, 10) + 'deg) }' +
+            '50% { -webkit-transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-20, 21) + 'px,' + random(-20, 21) + 'px) rotate(' + uniform(-10, 10) + 'deg) }' +
+            '75% { -webkit-transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-20, 21) + 'px,' + random(-20, 21) + 'px) rotate(' + uniform(-10, 10) + 'deg) }' +
+            '100% { -webkit-transform: translate(-50%,-50%) rotate(' + rotate + 'deg) scale(' + scale + ') translate(' + random(-20, 21) + 'px,' + random(-20, 21) + 'px) rotate(' + uniform(-10, 10) + 'deg) }' +
+        '}'
 
-    item.style.animation = 'floatItem' + index + ' ' + random(10, 30) + 's infinite alternate'
-    item.style.webkitAnimation = item.style.animation
+        style.textContent = keyframes
+        document.head.appendChild(style)
 
-    wrapper.append(item)
+        item.style.animation = 'floatItem' + index + ' ' + random(10, 30) + 's infinite alternate'
+        item.style.webkitAnimation = item.style.animation
+
+        where.append(item)
+    }
 }
+
+
 
 const items = [
     { image: 'ya.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
