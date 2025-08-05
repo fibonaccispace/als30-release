@@ -28,7 +28,12 @@
     perspective: 100px;
     overflow: hidden;
 }
+#gallery .history-block:active {
+    transform: scale(.97);
+    filter: saturate(120%) brightness(1.2);
+}
 #gallery .history-block {
+    transition: .2s ease-out;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -212,7 +217,7 @@ p.main__logo-description {
     -webkit-transform: translate(-50%, -50%);
 }
 .history-block-rotate {
-    transition: .3s ease-out;
+    transition: .1s;
 }
 .history-block__video {
     border-radius: 20px;
@@ -638,9 +643,9 @@ function init() {
     items.forEach((item)=>{
         const element = item.element
         if(element && !item.quote){
-            // element.style.transform = 'scaleY('+(1+Math.min(diffAbs/300,.3))+')'
-            element.style.transform = 'scale('+(1-Math.min(diffAbs/300,.3))+')'
-            // element.style.transform = 'scale('+(minmax(.3,1-element.getBoundingClientRect().top/1400,2))+')'
+            element.style.transform = 'scaleY('+(1+Math.min(diffAbs/300,.3))+') scale('+(1-(element.getBoundingClientRect().top+100)/6000)+')'
+            // element.style.transform = 'scale('+(1-Math.min(diffAbs/300,.3))+')'
+            // element.style.transform = 'scale('+(1-(element.getBoundingClientRect().top+100)/3000)+')'
         }
     })
 
