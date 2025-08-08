@@ -38,7 +38,8 @@
     flex-direction: column;
     align-items: center;
     margin-top: 80px;
-    margin-bottom: 196px;
+    cursor: pointer;
+    /* margin-bottom: 196px; */
 }
 #gallery .date-wrapper {
     position: relative;
@@ -105,13 +106,14 @@ body {
     top: 0;
     left: 0;
     transform: translate(-50%,-50%);
-    transition: height .3s ease-out;
+    transition: height .3s ease-out, width .3s ease-out;
     opacity: 1;
     pointer-events: none;
 }
+
 .quote {
     max-width: 800px;
-    margin: 0 auto 200px auto;
+    margin: 200px auto 80px auto;
     position: relative;
     z-index: 10;
 }
@@ -185,7 +187,7 @@ p.main__logo-description {
     transition: 1s ease;
 }
 .main__logo {
-    margin-bottom: 40vh;
+    margin-bottom: 10vh;
     position: relative;
 }
 
@@ -334,6 +336,12 @@ p.main__logo-description {
     height: 100%;
 }
 
+.mini-particle{
+    position: absolute;
+    width: 200px;
+    top: 50%;
+    left: 50%;
+}
 
 
 
@@ -411,7 +419,7 @@ const wrapper = document.getElementById('particles-list')
 const finishWrapper = document.querySelector('.finish-particles')
 
 fillBlockFixedParticles(wrapper)
-fillBlockFixedParticles(finishWrapper)
+// fillBlockFixedParticles(finishWrapper)
 
 function fillBlockFixedParticles(where) {
     const offset = random(0, images.length)
@@ -469,88 +477,85 @@ function fillBlockFixedParticles(where) {
     }
 }
 
-
-
 const items = [
-    { image: 'ya.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
-    { image: 'rostselmash.png', year: 2004, title: 'Логотип &laquo;Ростсельмаша&raquo;' },
-    { image: 'bbk.png', year: 2006, title: 'Пульт BBK', width: '500px' },
-    { image: 'gruz200.png', year: 2007, title: 'Плакат кинофильма<br>&laquo;Груз 200&raquo;' },
+    { link: 'https://www.artlebedev.ru/yandex/identity3/', image: 'ya.png', year: 1999, title: 'Логотип &laquo;Яндекса&raquo;' },
+    { link: 'https://www.artlebedev.ru/rostselmash/', image: 'rostselmash.png', year: 2004, title: 'Логотип &laquo;Ростсельмаша&raquo;' },
+    { link: 'https://www.artlebedev.ru/bbk/remotes/', image: 'bbk.png', year: 2006, title: 'Пульт BBK', width: '500px' },
+    { link: 'https://www.artlebedev.ru/nashe_kino/gruz200/', image: 'gruz200.png', year: 2007, title: 'Плакат кинофильма<br>&laquo;Груз 200&raquo;' },
     { quote: true, text: 'Нет готовых рецептов дизайнерского успеха, потому что их&nbsp;вообще никто&nbsp;не&nbsp;знает.', author: 'Артемий Лебедев<br>худрук' },
-    { image: 'board1.png', year: 2008, title: 'Дорожный знак<br>&laquo;Фары и&nbsp;ремень&raquo;' },
-    { image: 'perm.png', year: 2009, title: 'Логотип Перми' },
-    { image: 'bigt.png', year: 2011, title: 'Большой театр', width: '180%' },
-    { image: 'smile.png', year: 2011, title: 'Знак &laquo;Фотографировать<br>разрешено&raquo;' },
-    { quote: true, text: 'Идея ничего не&nbsp;стоит.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
-    { image: 'park2.png', year: 2012, title: 'Парк Горького', top: '-15%' },
-    { image: 'odessa.png', year: 2012, title: 'Логотип Одессы' },
-    { image: 'rubl.png', year: 2013, title: 'Знак рубля', width: '700px' },
-    { image: '18+.png', year: 2013, title: 'Знаки возрастных<br>ограничений' },
-    { image: 'pulk.png', year: 2014, title: 'Аэропорт &laquo;Пулково&raquo;' },
+    { link: 'https://www.artlebedev.ru/lights-and-belts/', image: 'board1.png', year: 2008, title: 'Дорожный знак<br>&laquo;Фары и&nbsp;ремень&raquo;' },
+    { link: 'https://www.artlebedev.ru/perm/logo/', image: 'perm.png', year: 2009, title: 'Логотип Перми' },
+    { link: 'https://www.artlebedev.ru/bolshoi/', image: 'bigt.png', year: 2011, title: 'Большой театр', width: '180%' },
+    { link: 'https://www.artlebedev.ru/photo-ok/', image: 'smile.png', year: 2011, title: 'Знак &laquo;Фотографировать<br>разрешено&raquo;' },
+    { link: 'kkkkkkkk', quote: true, text: 'Идея ничего не&nbsp;стоит.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
+    { link: 'https://www.artlebedev.ru/gorky-park/', image: 'park2.png', year: 2012, title: 'Парк Горького', top: '-15%' },
+    { link: 'https://www.artlebedev.ru/odessa/identity/', image: 'odessa.png', year: 2012, title: 'Логотип Одессы' },
+    { link: 'https://www.artlebedev.ru/kovodstvo/sections/159/', image: 'rubl.png', year: 2013, title: 'Знак рубля', width: '700px' },
+    { link: 'https://www.artlebedev.ru/age/vector/', image: '18+.png', year: 2013, title: 'Знаки возрастных<br>ограничений' },
+    { link: 'https://www.artlebedev.ru/pulkovo/', image: 'pulk.png', year: 2014, title: 'Аэропорт &laquo;Пулково&raquo;' },
     { quote: true, text: 'Не&nbsp;уживайся с&nbsp;однообразием!', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
-    { image: 'metro.png', year: 2014, title: 'Московское метро' },
-    { image: 'board3.png', year: 2014, title: 'Уличные указатели в&nbsp;Москве' },
-    { image: 'yk.png', year: 2014, title: 'Логотип &laquo;Якитории&raquo;' },
-    { image: 'helic.png', year: 2015, title: 'Вертолет &laquo;Скаут&raquo;', width: '180%', top: '-20%' },
-    { image: 'parking.png', year: 2015, title: 'Московские парковки', width: '40%'},
+    { link: 'https://www.artlebedev.ru/metro/', image: 'metro.png', year: 2014, title: 'Московское метро' },
+    { link: 'https://www.artlebedev.ru/moscow/street-signs/', image: 'board3.png', year: 2014, title: 'Уличные указатели в&nbsp;Москве' },
+    { link: 'https://www.artlebedev.ru/yakitoriya/identity/', image: 'yk.png', year: 2014, title: 'Логотип &laquo;Якитории&raquo;' },
+    { link: 'https://www.artlebedev.ru/scout/', image: 'helic.png', year: 2015, title: 'Вертолет &laquo;Скаут&raquo;', width: '180%', top: '-20%' },
+    { link: 'https://www.artlebedev.ru/deptrans/parking4/', image: 'parking.png', year: 2015, title: 'Московские парковки', width: '40%'},
     { quote: true, text: 'Звезда&nbsp;&mdash; наше всё.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
-    { image: 'mail.png', year: 2015, title: 'Почтовые ящики<br>Почты России' },
-    { image: 'mos.png', year: 2015, title: 'Промо-сайт<br>&laquo;Узнай Москву&raquo;', top: '-15%' },
-    { image: 'luzh.png', year: 2016, title: 'Фасады и&nbsp;навигация<br>Лужников' },
-    { image: 'rumancevo.png', year: 2016, title: 'Шрифтовое оформление станции метро &laquo;Румянцево&raquo;' },
-    { image: 'aicar.png', year: 2016, title: 'Дорожный знак &laquo;Движение беспилотных транспортных средств&raquo;' },
+    { link: 'https://www.artlebedev.ru/russianpost/mailbox/', image: 'mail.png', year: 2015, title: 'Почтовые ящики<br>Почты России' },
+    { link: 'https://www.artlebedev.ru/moscow/um/', image: 'mos.png', year: 2015, title: 'Промо-сайт<br>&laquo;Узнай Москву&raquo;', top: '-15%' },
+    { link: 'https://www.artlebedev.ru/luzhniki/facade/', image: 'luzh.png', year: 2016, title: 'Фасады и&nbsp;навигация<br>Лужников' },
+    { link: 'https://www.artlebedev.ru/metro/rumyantsevo/', image: 'rumancevo.png', year: 2016, title: 'Шрифтовое оформление станции метро &laquo;Румянцево&raquo;' },
+    { link: 'https://www.artlebedev.ru/autonomous-car-sign/', image: 'aicar.png', year: 2016, title: 'Дорожный знак &laquo;Движение беспилотных транспортных средств&raquo;' },
     { quote: true, text: 'Умение оценивать хороший дизайн является не&nbsp;меньшим достижением, чем умение его создавать.', author: 'Артемий Лебедев.<br>&laquo;Ководство&raquo;' },
-    { image: 'cska.png', year: 2016, title: 'Проекты ХК&nbsp;ЦСКА' },
-    { image: 'zar.png', year: 2017, title: 'Навигация парка Зарядье' },
-    { image: 'pattern.png', year: 2017, title: 'Паттерн для сидений московского наземного транспорта', width: '100%' },
-    { image: 'nike.png', year: 2017, title: 'Кроссовок<br>Найк' },
-    { image: 'racia.png', year: 2018, title: 'Радиостанции<br>Созвездие', top: '-40%', width: '80%'},
+    { link: 'https://www.artlebedev.ru/cska/', image: 'cska.png', year: 2016, title: 'Проекты ХК&nbsp;ЦСКА' },
+    { link: 'https://www.artlebedev.ru/zaryadye/', image: 'zar.png', year: 2017, title: 'Навигация парка Зарядье' },
+    { link: 'https://www.artlebedev.ru/mosgortrans/pattern/', image: 'pattern.png', year: 2017, title: 'Паттерн для сидений московского наземного транспорта', width: '100%' },
+    { link: 'https://tema.livejournal.com/2459464.html', image: 'nike.png', year: 2017, title: 'Кроссовок<br>Найк' },
+    { link: 'https://www.artlebedev.ru/sozvezdie/portable-transmitter/', image: 'racia.png', year: 2018, title: 'Радиостанции<br>Созвездие', top: '-40%', width: '80%'},
     { quote: true, text: 'Завязывай<br>со стилизацией!', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
-    { image: 'clock.png', year: 2018, title: 'Навигация Шереметьево' },
-    { image: 'vdnh.png', year: 2018, title: 'Навигация ВДНХ' },
-    { image: 'electrobus.png', year: 2018, title: 'Это электробус', width: '95%' },
-    { image: 'comm.png', year: 2018, title: 'Визуальная коммуникация для наземного транспорта Москвы' },
-    { image: 'ag.png', year: 2018, title: 'Айдентика проекта &laquo;Активный гражданин&raquo;' },
+    { link: 'https://www.artlebedev.ru/svo/', image: 'clock.png', year: 2018, title: 'Навигация Шереметьево' },
+    { link: 'https://www.artlebedev.ru/vdnh/scheme/', image: 'vdnh.png', year: 2018, title: 'Навигация ВДНХ' },
+    { link: 'https://www.artlebedev.ru/deptrans/electrobus/', image: 'electrobus.png', year: 2018, title: 'Это электробус', width: '95%' },
+    { link: 'https://www.artlebedev.ru/mosgortrans/visual-communication/', image: 'comm.png', year: 2018, title: 'Визуальная коммуникация для наземного транспорта Москвы' },
+    { link: 'https://www.artlebedev.ru/active-citizen/identity/', image: 'ag.png', year: 2018, title: 'Айдентика проекта &laquo;Активный гражданин&raquo;' },
     { quote: true, text: 'Лучшие идеи приходят к&nbsp;тем,&nbsp;для кого решаемая проблема&nbsp;&mdash; личная.', author: 'Сергей Кулинкович<br>арт-директор' },
-    { image: 'ball.png', year: 2018, title: 'Проекты РПЛ' },
-    { image: 'krasnodar.png', year: 2019, title: 'Навигация стадиона и&nbsp;парка Краснодар' },
-    { image: 'federatsia.png', year: 2019, title: 'Айдентика Башни Федерация' },
-    { image: 'zoo.png', year: 2019, title: 'Московский зоопарк' },
-    { image: 'rzd.png', year: 2019, title: 'Электронный билет РЖД' },
+    { link: 'https://www.artlebedev.ru/rpl/logo/', image: 'ball.png', year: 2018, title: 'Проекты РПЛ' },
+    { link: 'https://www.artlebedev.ru/fc-krasnodar/navigation/', image: 'krasnodar.png', year: 2019, title: 'Навигация стадиона и&nbsp;парка Краснодар' },
+    { link: 'https://www.artlebedev.ru/federationtower/logo/', image: 'federatsia.png', year: 2019, title: 'Айдентика Башни Федерация' },
+    { link: 'https://www.artlebedev.ru/moscow-zoo/', image: 'zoo.png', year: 2019, title: 'Московский зоопарк' },
+    { link: 'https://www.artlebedev.ru/rzd/ticket/', image: 'rzd.png', year: 2019, title: 'Электронный билет РЖД' },
     { quote: true, text: 'Делай в&nbsp;лоб!', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;', size: true },
-    { image: 'mp.png', year: 2019, title: 'Моя поликлиника' },
-    { image: 'aml.png', year: 2019, title: 'Асикс и&nbsp;Метро', top: '-7%' },
-    { image: 'mascots.png', year: 2016, title: 'Талисманы &laquo;Команды России&raquo;' },
-    { image: 'leningrad.png', year: 2016, title: 'Ленинград' },
-    { video: 'lavrus.mp4', year: 2019, title: 'Лаврус' },
+    { link: 'https://www.artlebedev.ru/moya-poliklinika/', image: 'mp.png', year: 2019, title: 'Моя поликлиника' },
+    { link: 'https://www.artlebedev.ru/asics/', image: 'aml.png', year: 2019, title: 'Асикс и&nbsp;Метро', top: '-7%' },
+    { link: 'https://www.artlebedev.ru/roc/mascots/', image: 'mascots.png', year: 2019, title: 'Талисманы &laquo;Команды России&raquo;' },
+    { link: 'https://www.artlebedev.ru/leningrad/logo/', video: 'leningrad.mp4', year: 2019, title: 'Ленинград' },
+    { link: 'https://www.artlebedev.ru/tretyakovgallery/lavrus-identity/', video: 'lavrus.mp4', year: 2019, title: 'Лаврус' },
     { quote: true, text: 'Сделать хорошо возможно с&nbsp;любым набором ограничений.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
-    { image: 'watch.png', year: 2020, title: 'Часы &laquo;Радиус&raquo;', width: '700px' },
-    { image: 'ykutsk.png', year: 2020, title: 'Дизайн-код Якутска' },
-    { video: 'ironov.mp4', year: 2020, title: 'Николай Иронов' },
-    { image: 'ru.png', year: 2020, title: 'Знак &laquo;Сделано в&nbsp;России&raquo;' },
-    { image: 'aqua.png', year: 2020, title: 'Сайт &laquo;Аквариума&raquo; 2.0', width: '125%', top: '-30%' },
+    { link: 'https://www.artlebedev.ru/radius/', image: 'watch.png', year: 2020, title: 'Часы &laquo;Радиус&raquo;', width: '700px' },
+    { link: 'https://www.artlebedev.ru/yakutsk/design-code/', image: 'ykutsk.png', year: 2020, title: 'Дизайн-код Якутска' },
+    { link: 'https://www.artlebedev.ru/ironov/1/', video: 'ironov.mp4', year: 2020, title: 'Николай Иронов' },
+    { link: 'https://www.artlebedev.ru/made-in-russia/mark/vector/', image: 'ru.png', year: 2020, title: 'Знак &laquo;Сделано в&nbsp;России&raquo;' },
+    { link: 'https://www.artlebedev.ru/aquarium/site2/', image: 'aqua.png', year: 2020, title: 'Сайт &laquo;Аквариума&raquo; 2.0', width: '125%', top: '-30%' },
     { quote: true, text: 'Не&nbsp;надо стесняться пробовать и&nbsp;делать&nbsp;то, что другим кажется ерундой.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
-    { image: 'comm2.png', year: 2021, title: 'Новый язык коммуникаций Московского транспорта' },
-    { image: 'metrovagonmash.png', year: 2021, title: 'Таблички и&nbsp;наклейки для поездов Метровагонмаша' },
-    { image: 'vnukovo.png', year: 2022, title: 'Навигация<br>для аэропорта Внуково', top: '-8%' },
-    { image: 'noyabrsk.png', year: 2022, title: 'Остановки общественного транспорта Ноябрьска' },
-    { image: 'narayone.gif', year: 2022, title: 'На районе' },
+    { link: 'https://www.artlebedev.ru/deptrans/mostransport/', image: 'comm2.png', year: 2021, title: 'Новый язык коммуникаций Московского транспорта' },
+    { link: 'https://www.artlebedev.ru/metro/nameplates/', image: 'metrovagonmash.png', year: 2021, title: 'Таблички и&nbsp;наклейки для поездов Метровагонмаша' },
+    { link: 'https://www.artlebedev.ru/vnukovo/navigation/', image: 'vnukovo.png', year: 2022, title: 'Навигация<br>для аэропорта Внуково', top: '-8%' },
+    { link: 'https://www.artlebedev.ru/noyabrsk/bus-stop/', image: 'noyabrsk.png', year: 2022, title: 'Остановки общественного транспорта Ноябрьска' },
+    { link: 'https://www.artlebedev.ru/narayone/', image: 'narayone.gif', year: 2022, title: 'На районе' },
     { quote: true, text: 'Люби недолюбленное!', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
-    { image: 'poka.png', year: 2022, title: 'Дорожный знак &laquo;Чмоки и&nbsp;поки&raquo;' },
-    { image: 'teriberka.png', year: 2022, title: 'Стела для Териберки' },
-    // Сайт истории российского флага
-    // Вторая версия сайта Конституции России
-    { image: 'dobro.png', year: 2023, title: 'Логотип проекта<br>&laquo;Добродел&raquo;' },
+    { link: 'https://moskvichmag.ru/gorod/skandalnyj-znak-vysadil-i-uehal-u-litseya-kapitsy-zamenili-znakom-chmoki-i-poki/', image: 'poka.png', year: 2022, title: 'Дорожный знак &laquo;Чмоки и&nbsp;поки&raquo;' },
+    { link: 'https://www.artlebedev.ru/teriberka/stele/', image: 'teriberka.png', year: 2022, title: 'Стела для Териберки' },
+    // Сайт истории российского флага  https://www.artlebedev.ru/flag/site/
+    { link: 'https://www.artlebedev.ru/constitution-of-russia/site2/', video: 'constitution.mp4', year: 2023, title: 'Вторая версия сайта<br>Конституции России', width: '70%', part: { image: 'c-part.svg', z: -1, pos: {x: 250, y: -130} } },  
+    { link: 'https://www.artlebedev.ru/dobrodel/logo/', image: 'dobro.png', year: 2023, title: 'Логотип проекта<br>&laquo;Добродел&raquo;' },
     { quote: true, text: 'Дизайн&nbsp;&mdash; это стратегия.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
-    { image: 'ufa.png', year: 2023, title: 'Туристическая навигация<br>для Уфы' },
-    { image: '5.png', year: 2023, title: 'Интерьеры магазинов<br>&laquo;Пятёрочка&raquo;' },
-    { image: 'akkuyu.png', year: 2023, title: 'Сайт атомной электростанции<br>&laquo;Аккую&raquo;', top: '-30%', width: '100%' },
-    { image: 'm11.png', year: 2024, title: 'Название и&nbsp;логотип<br>&laquo;М11&nbsp;Подмосковье&raquo;', top: '-12%' },
-    { image: 'minjust.png', year: 2024, title: 'Айдентика<br>Министерства юстиции<br>Российской Федерации' },
+    { link: 'https://www.artlebedev.ru/ufa/navigation/', image: 'ufa.png', year: 2023, title: 'Туристическая навигация<br>для Уфы' },
+    { link: 'https://www.artlebedev.ru/5ka/store/', image: '5.png', year: 2023, title: 'Интерьеры магазинов<br>&laquo;Пятёрочка&raquo;' },
+    { link: 'https://www.artlebedev.ru/akkuyu/', image: 'akkuyu.png', year: 2023, title: 'Сайт атомной электростанции<br>&laquo;Аккую&raquo;', top: '-30%', width: '100%' },
+    { link: 'https://www.artlebedev.ru/m-11/podmoskovye/', image: 'm11.png', year: 2024, title: 'Название и&nbsp;логотип<br>&laquo;М11&nbsp;Подмосковье&raquo;', top: '-12%' },
+    { link: 'https://www.artlebedev.ru/minjust/', image: 'minjust.png', year: 2024, title: 'Айдентика<br>Министерства юстиции<br>Российской Федерации' },
     { quote: true, text: 'Дизайн&nbsp;&mdash; это война.', author: 'Из&nbsp;книги &laquo;Принципы и&nbsp;парадоксы.<br>25&nbsp;лет Студии Артемия Лебедева&raquo;' },
-    // Сайт Министерства энергетики Российской Федерации
-    { image: 'mur.png', year: 2024, title: 'Мурманск' },
-    // Лифт СЛЗ 
+    // Сайт Министерства энергетики Российской Федерации  https://www.artlebedev.ru/minenergo/
+    { link: 'https://www.artlebedev.ru/murmansk/', image: 'mur.png', year: 2024, title: 'Мурманск' },
 ]
 
 items.forEach((item)=>{
@@ -598,8 +603,23 @@ function createHistoryBlock(item) {
     rotateBlock.classList.add('history-block-rotate')
     rotateBlock.append(block)
 
+    if(item.part) {
+        const part = document.createElement('img')
+        part.src = 'media/blocks/'+item.part.image
+        part.style.zIndex = item.part.z
+        part.classList.add('mini-particle')
+        part.style.transform = 'translate(-50%,-50%) translate('+item.part.pos.x+'% ,'+item.part.pos.y+'%)'
+        rotateBlock.append(part)
+    }
+
     item.element = rotateBlock
     gallery.append(rotateBlock)
+
+    if(item.link){
+        item.element.addEventListener('click', ()=>{
+            window.open(item.link);
+        })
+    }
 }
 
 function createParalaxItem(pos, velocity) {
@@ -615,14 +635,14 @@ function createParalaxItem(pos, velocity) {
     item.style.top = pos+'%'
     item.pos = pos
     item.velocity = (velocity?velocity:0)
-    item.speed = uniform(1,1.4)
+    item.speed = uniform(1,2)
     item.style.left = Math.random()*100+'%'
     paralax.append(item)
 }
 
 const paralax = document.getElementById('paralax')
 for(let i = 0; i < 100; i++) {
-    if(random(0,100)>50) continue
+    if(random(0,100)>90) continue
     createParalaxItem(random(0,100)+random(-spawnBorder,spawnBorder))
 }
 
@@ -648,7 +668,11 @@ function init() {
         }
         item.velocity += diff*item.speed*0.5
         if(finish.getBoundingClientRect().top < 100 || someQuote()){
+            item.style.width = '20px'
             item.velocity += 20
+        }
+        else {
+            item.style.width = '5px'
         }
         item.velocity = minmax(-100,item.velocity,100)
         item.pos -= item.velocity*0.05
@@ -671,9 +695,11 @@ function init() {
     items.forEach((item)=>{
         const element = item.element
         if(element && !item.quote){
-            element.style.transform = 'scaleY('+(1+Math.min(diffAbs/300,.3))+') scale('+(1-(element.getBoundingClientRect().top+100)/6000)+')'
+            // element.style.transform = 'scaleY('+(1+Math.min(diffAbs/300,.3))+') scale('+(1-(element.getBoundingClientRect().top+100)/6000)+')'
             // element.style.transform = 'scale('+(1-Math.min(diffAbs/300,.3))+')'
-            // element.style.transform = 'scale('+(1-(element.getBoundingClientRect().top+100)/3000)+')'
+            const size = element.getBoundingClientRect().bottom/window.innerHeight
+            const nsize = -minmax(0,size/2,1)+.5
+            element.style.transform = 'scale('+(1+nsize)+')'
         }
     })
 
